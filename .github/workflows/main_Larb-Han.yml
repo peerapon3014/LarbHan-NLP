@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_b250953c160d4d7c92210ca59d34bbb0 }}/larb-han:${{ github.sha }}
+        tags: testnlp.azurecr.io/larb-han:v1
         file: ./Dockerfile
 
   deploy:
@@ -48,4 +48,4 @@ jobs:
         app-name: 'Larb-Han'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_6ffedbbf0c0c46cb8b9f43a59aff4476 }}
-        images: 'testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_b250953c160d4d7c92210ca59d34bbb0 }}/larb-han:${{ github.sha }}'
+        images: 'testnlp.azurecr.io/larb-han:v1'
