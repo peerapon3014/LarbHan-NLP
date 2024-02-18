@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import csv
 #Creating an index for each word in our vocab.
 index_dict = {} #Dictionary to store index for each word
 i = 0
@@ -45,44 +46,40 @@ def tf_idf(sentence):
 import json
 from pythainlp.tokenize import word_tokenize
 
-
 # dataset = load_dataset("pythainlp/han-instruct-dataset-v1.0")
-# qa_data = load_dataset("pythainlp/han-instruct-dataset-v1.0")
-
-qa_data = {}
-
-with open("dict_chitchat_th.json") as json_file:
-  qa_data = json.load(json_file)
-  qa_data["ใครสร้างคุณ"] = 'พีรพล โพธิ์คำ 643021113-0' 
-  
-
-#print five questions
-# list(qa_data.keys())[0:5]
-
-with open('clean_larp_han.csv', encoding="utf8") as f:
-  lines1 = f.readlines()
-
-  data1 = lines1[1:]
-
 qa_dict1 = {}
 qa_dict1["พระเจ้าตาก"] = 'ยุทธศาสตร์ยิ่งใหญ่ความตั้งใจเด็ดเดี่ยว' 
 qa_dict1["ci/cd"] = 'CI/CD เป็นวิธีการที่ช่วยให้เราสามารถสร้าง Application ซึ่งเป็นแนวคิดที่ช่วยลดปัญหาปัญหาระหว่างทีม Development และทีม Operation ก่อนที่ Deploy ไปยัง Production' 
 
-for item in data1:
-  # x = item.replace("\n","")
-  x = item.split(",")
-  # print(x)
 
-  words = word_tokenize(x[1].replace("?"," ").strip(), engine="newmm")
-  seg_w =" ".join(words)
-  qa_dict1[seg_w] = x[2].strip()
+with open('clean_larp_han.csv', encoding="utf8") as f:
+  lines1 = f.readlines()
+  data1 = lines1[1:]
+  for item in data1:
+    # x = item.replace("\n","")
+    x = item.split(",")
+    # print(x)
+    words = word_tokenize(x[1].replace("?"," ").strip(), engine="newmm")
+    seg_w =" ".join(words)
+    qa_dict1[seg_w] = x[2].strip()
 
 
-
+with open('food.csv', newline='', encoding='utf-8') as csvfile:
+    csvreader = csv.reader(csvfile)
+    next(csvreader)  # skip header
+    for row in csvreader:
+        name = row[1]
+        text = row[2]
+        text = text.replace('\n', ' ')  # เชื่อมข้อความในบรรทัดเดียวกันด้วยช่องว่าง
+        # ใช้ word_tokenize ในการตัดคำ
+        words = word_tokenize(name.replace("?", " ").strip(), engine="newmm")
+        seg_text = " ".join(words)
+        
+        # เพิ่มข้อมูลเข้า dictionary
+        qa_dict1[seg_text] = text
 
 
 #เขียนโค้เพิ่มเพื่อ ให้คำนวน TF-IDF ของข้อมูลคำถาม ใช้โค้ดตัวอย่างจากส่วนที่ 1
-questions = list(qa_data.keys()) # คำถามเก็บอยู่ตัวแปร question แล้ว
 questions1 = list(qa_dict1.keys()) # คำถามเก็บอยู่ตัวแปร question แล้ว
 
 
@@ -162,7 +159,7 @@ def ask(q):
     q = word_tokenize(q, engine="newmm")
     t1 = tf_idf(q)
   except:
-    return "ฉันบ่รู้"
+    return "ห่านก็มั่ยรู้วว :("
    
   maxCosine = 0
   q = ""
@@ -179,11 +176,11 @@ def ask(q):
   if maxCosine > 0.5:
     return qa_dict1[q]
   else:
-    return "???"
+    return "อิหยังน้ออ"
 
 
 print(ask("ขุ่ยคือใคร"))
-
+print(ask("ข้าวเม่าทอด"))
 #print five questions
 # print(list(qa_data1.values())[110:115])
 
