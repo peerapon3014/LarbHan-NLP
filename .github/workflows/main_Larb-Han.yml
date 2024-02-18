@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_c924ec2874694649a8ecf82ea5f6d27b }}/larb-han:${{ github.sha }}
+        tags: testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_c924ec2874694649a8ecf82ea5f6d27b }}/larb-han:v1${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
