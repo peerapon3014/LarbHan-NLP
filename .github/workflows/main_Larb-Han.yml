@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://testnlp.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_e16dd94d07504dce8868d5883b16893e }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_894e8993caf9474e9d5166ebdaa87d5c }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_b72c3259facf4353b3dced8bdb7d46f5 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_7ad11bd4de3947e394a3ebc9cc3d6cb7 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e16dd94d07504dce8868d5883b16893e }}/ testnlp.azurecr.io/larb-han:${{ github.sha }}
+        tags: testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_b72c3259facf4353b3dced8bdb7d46f5 }}/larb-han:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'Larb-Han'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b5e584dfc96a400d93ff29d3c1457a20 }}
-        images: 'testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e16dd94d07504dce8868d5883b16893e }}/ testnlp.azurecr.io/larb-han:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_279a0c7feecc4b5a8e8063863bede387 }}
+        images: 'testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_b72c3259facf4353b3dced8bdb7d46f5 }}/larb-han:${{ github.sha }}'
