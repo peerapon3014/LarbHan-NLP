@@ -66,6 +66,7 @@ with open('clean_larp_han.csv', encoding="utf8") as f:
 
 qa_dict1 = {}
 qa_dict1["พระเจ้าตาก"] = 'ยุทธศาสตร์ยิ่งใหญ่ความตั้งใจเด็ดเดี่ยว' 
+qa_dict1["ci/cd"] = 'CI/CD เป็นวิธีการที่ช่วยให้เราสามารถสร้าง Application ซึ่งเป็นแนวคิดที่ช่วยลดปัญหาปัญหาระหว่างทีม Development และทีม Operation ก่อนที่ Deploy ไปยัง Production' 
 
 for item in data1:
   # x = item.replace("\n","")
