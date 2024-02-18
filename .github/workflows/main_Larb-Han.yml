@@ -11,41 +11,42 @@ on:
 
 jobs:
   build:
-    runs-on: 'ubuntu-latest'
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-    - name: Log in to registry
-      uses: docker/login-action@v2
-      with:
-        registry: https://testnlp.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_4b818e8f2de54d308830e4a6cface035 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_4cd98f371f004e8ea01e964a24f3bfad }}
-
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4b818e8f2de54d308830e4a6cface035 }}/larb-han:${{ github.sha }}
-        file: ./Dockerfile
-
-  deploy:
     runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'Larb-Han'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_826ca5d3f8a24adda0961069af8335e2 }}
-        images: 'testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4b818e8f2de54d308830e4a6cface035 }}/larb-han:${{ github.sha }}'
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: https://testnlp.azurecr.io/
+          username: ${{ secrets.AzureAppService_ContainerUsername_4b818e8f2de54d308830e4a6cface035 }}
+          password: ${{ secrets.AzureAppService_ContainerPassword_4cd98f371f004e8ea01e964a24f3bfad }}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4b818e8f2de54d308830e4a6cface035 }}/larb-han:v1:${{ github.sha }}
+          file: ./Dockerfile
+
+    deploy:
+      runs-on: ubuntu-latest
+      needs: build
+      environment:
+        name: 'production'
+        url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+      steps:
+        - name: Deploy to Azure Web App
+          id: deploy-to-webapp
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: 'Larb-Han'
+            slot-name: 'production'
+            publish-profile: ${{ secrets.AzureAppService_PublishProfile_826ca5d3f8a24adda0961069af8335e2 }}
+            images: 'testnlp.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4b818e8f2de54d308830e4a6cface035 }}/larb-han:v1:${{ github.sha }}'
