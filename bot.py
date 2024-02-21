@@ -78,6 +78,15 @@ with open('food.csv', newline='', encoding='utf-8') as csvfile:
         # เพิ่มข้อมูลเข้า dictionary
         qa_dict1[seg_text] = text
 
+with open("wiki.csv", encoding="utf8") as f_wiki:
+   wiki_reader = csv.reader(f_wiki)
+   for row in wiki_reader:
+      name = row[1]
+      text = row[2]
+      text = text.replace("\n", " ")
+      words = word_tokenize(name.replace("?", " ").strip(), engine="newmm")
+      seg_word = " ".join(words)
+      qa_dict1[seg_word] = text
 
 #เขียนโค้เพิ่มเพื่อ ให้คำนวน TF-IDF ของข้อมูลคำถาม ใช้โค้ดตัวอย่างจากส่วนที่ 1
 questions1 = list(qa_dict1.keys()) # คำถามเก็บอยู่ตัวแปร question แล้ว
@@ -179,8 +188,9 @@ def ask(q):
     return "อิหยังน้ออ"
 
 
-print(ask("ขุ่ยคือใคร"))
-print(ask("ข้าวเม่าทอด"))
+# print(ask("ขุ่ยคือใคร"))
+# print(ask("ข้าวเม่าทอด"))
+print(ask("หนู"))
 #print five questions
 # print(list(qa_data1.values())[110:115])
 
