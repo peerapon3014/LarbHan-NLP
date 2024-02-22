@@ -32,7 +32,7 @@ from linebot.v3.webhooks import (
     MessageEvent,
     TextMessageContent
 )
-
+import han
 import os
 os.environ["LINE_CHANNEL_SECRET"] = "dea91eb5e35c341e8b6704d91b10b085"
 os.environ["LINE_CHANNEL_ACCESS_TOKEN"] = "KWWYJXVNAq/hLhPpljFvUrjoI2CABBlDiE45vAynuhn/dzVYHLOIihyCnqA8dn+OskXKScRa2vBFtrBUYt9a0VuEOUK3L9o3fop3fpgBqSp4yLSndhzuxt5eEYvgAmg7E/7FT32Qe28vuvZY1f3nowdB04t89/1O/w1cDnyilFU="
@@ -57,12 +57,12 @@ async_api_client = AsyncApiClient(configuration)
 line_bot_api = AsyncMessagingApi(async_api_client)
 parser = WebhookParser(channel_secret)
 
-import han
 
 
 @app.get("/")
 def read_root():
     return "Hello"
+
 @app.post("/callback")
 async def handle_callback(request: Request):
     signature = request.headers['X-Line-Signature']
@@ -83,8 +83,7 @@ async def handle_callback(request: Request):
             continue
         
         print(event.message.text)
-        # ans = han.ask(event.message.text)
-        ans = 'ห่านปิดทำการ ไม่มีตังจ่ายค่าคลาวด์'
+        ans = han.ask(event.message.text)
         # print(ans)
 
 
