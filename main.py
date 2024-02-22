@@ -84,7 +84,7 @@ async def handle_callback(request: Request):
         
         print(event.message.text)
         ans = han.ask(event.message.text)
-        # print(ans)
+        print(ans)
 
 
         await line_bot_api.reply_message(
