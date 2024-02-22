@@ -57,7 +57,7 @@ async_api_client = AsyncApiClient(configuration)
 line_bot_api = AsyncMessagingApi(async_api_client)
 parser = WebhookParser(channel_secret)
 
-import bot
+import han
 
 
 @app.get("/")
@@ -83,7 +83,7 @@ async def handle_callback(request: Request):
             continue
         
         print(event.message.text)
-        ans = bot.ask(event.message.text)
+        ans = han.ask(event.message.text)
         print(ans)
 
 
