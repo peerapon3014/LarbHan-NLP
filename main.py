@@ -83,8 +83,9 @@ async def handle_callback(request: Request):
             continue
         
         print(event.message.text)
-        ans = han.ask(event.message.text)
-        print(ans)
+        # ans = han.ask(event.message.text)
+        ans = 'ห่านปิดทำการ ไม่มีตังจ่ายค่าคลาวด์'
+        # print(ans)
 
 
         await line_bot_api.reply_message(
