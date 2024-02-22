@@ -186,9 +186,9 @@ def ask(q):
     return "อิหยังน้ออ"
 
 
-print(ask("ขุ่ยคือใคร"))
-print(ask("ข้าวเม่าทอด"))
-print(ask("ข้าวกะเพรา"))
+# print(ask("ขุ่ยคือใคร"))
+# print(ask("ข้าวเม่าทอด"))
+# print(ask("ข้าวกะเพรา"))
 
 #print five questions
 # print(list(qa_data1.values())[110:115])
