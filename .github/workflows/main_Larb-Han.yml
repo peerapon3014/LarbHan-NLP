@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy container app to Azure Web App - Larb-Han
+name: Build and deploy container app to Azure Web App - LarbHan
 
 on:
   push:
@@ -11,41 +11,42 @@ on:
 
 jobs:
   build:
-    runs-on: 'ubuntu-latest'
-
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-      
-    - name: Log in to registry
-      uses: docker/login-action@v2
-      with:
-        registry: https://testnlp.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_b250953c160d4d7c92210ca59d34bbb0 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_a085281140ed456591ec661fd50eef66 }}
-
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: testnlp.azurecr.io/larb-han:v1
-        file: ./Dockerfile
-
-  deploy:
     runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'Larb-Han'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_6ffedbbf0c0c46cb8b9f43a59aff4476 }}
-        images: 'testnlp.azurecr.io/larb-han:v1'
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: https://larbhan.azurecr.io/
+          username: ${{ secrets.AzureAppService_ContainerUsername_9517319e653f4ffe9f94ea0f83c4ec5d }}
+          password: ${{ secrets.AzureAppService_ContainerPassword_7b5882893ed5428081afb0306784f398 }}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: larbhan.azurecr.io/larb-han:0.1
+          file: ./Dockerfile
+
+    deploy:
+      runs-on: ubuntu-latest
+      needs: build
+      environment:
+        name: 'production'
+        url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+      steps:
+        - name: Deploy to Azure Web App
+          id: deploy-to-webapp
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: 'LarbHan'
+            slot-name: 'production'
+            publish-profile: ${{ secrets.AzureAppService_PublishProfile_b98c1270a5214b7783644abe096b89d9 }}
+            images: 'larbhan.azurecr.io/larb-han:0.1'
