@@ -78,10 +78,13 @@ with open('clean_food.csv', newline='', encoding='utf-8') as csvfile:
         text = text.replace('\n', ' ')  # เชื่อมข้อความในบรรทัดเดียวกันด้วยช่องว่าง
         # ใช้ word_tokenize ตัดคำ
         words = word_tokenize(name.replace("?", " ").strip(), engine="newmm")
+        words1 = word_tokenize(name1.replace("?", " ").strip(), engine="newmm")
         seg_text = " ".join(words)
+        seg_text1 = " ".join(words1)
         
         # add data to dictionary
         qa_dict1[seg_text] = text
+        qa_dict1[seg_text1] = text
 
 with open("clean_wiki.csv", encoding="utf8") as f_wiki:
    wiki_reader = csv.reader(f_wiki)
@@ -187,7 +190,7 @@ def ask(q):
       q = Key
       maxCosine = c
    
-  if maxCosine > 0.5:
+  if maxCosine > 0:
     return qa_dict1[q]
   else:
     return "อิหยังน้ออ"
