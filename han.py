@@ -6,6 +6,7 @@ index_dict = {} #Dictionary to store index for each word
 i = 0
 
 #Create a count dictionary
+#นับคำที่อยู่ใน doc
 def count_dict(sentences):
     word_count = {}
     for word in word_set:
@@ -15,7 +16,8 @@ def count_dict(sentences):
                 word_count[word] += 1
     return word_count
  
-#Term Frequency
+#Term Frequency #TF
+#ความถี่ในแต่ละคำใน doc
 def termfreq(document, word):
     N = len(document)
     occurance = len([token for token in document if token == word])
@@ -23,7 +25,7 @@ def termfreq(document, word):
 
 
 #Inverse Document Frequency
- 
+#คำนั้นปรากฏในเอกสารทั้งหมดมากแค่ไหน
 def inverse_doc_freq(word):
     try:
         word_occurance = word_count[word] + 1
@@ -38,7 +40,7 @@ def tf_idf(sentence):
         tf = termfreq(sentence,word)
         idf = inverse_doc_freq(word)
          
-        value = tf*idf
+        value = tf*idf 
         tf_idf_vec[index_dict[word]] = value
     return tf_idf_vec
 
@@ -94,8 +96,8 @@ with open("clean_wiki.csv", encoding="utf8") as f_wiki:
 questions1 = list(qa_dict1.keys()) # คำถามเก็บอยู่ตัวแปร question 
 
 #Preprocessing the text data
-sentences = []
-word_set = []
+sentences = [] #[['ฉัน'],['ไป'],['เที่ยว'],['ที่'],['ภูเก็ต']]
+word_set = []  #เก็บคำไม่ซ้ำ
  
  
 for sent in questions1:
@@ -189,7 +191,7 @@ def ask(q):
     return "อิหยังน้ออ"
 
 
-# print(ask("ขุ่ยคือใคร"))
+print(ask("ขุ่ยคือใคร"))
 # print(ask("ข้าวเม่าทอด"))
 # print(ask("ข้าวกะเพรา"))
 
