@@ -77,7 +77,7 @@ with open('clean_food.csv', newline='', encoding='utf-8') as csvfile:
         text = text.replace('\n', ' ')  # เชื่อมข้อความในบรรทัดเดียวกันด้วยช่องว่าง
         # ใช้ word_tokenize ตัดคำ
         words = word_tokenize(x[1].replace("?","").strip(), engine="newmm")
-        words1 = word_tokenize(x[2].replace("-","").replace("#","").strip(), engine="newmm")
+        words1 = word_tokenize(x[2].replace("-","").strip(), engine="newmm")
         seg_w =" ".join(words)
         seg_w1 =" ".join(words1)
         qa_dict1[seg_w] = x[2].strip()
@@ -189,7 +189,7 @@ def ask(q):
       
       
 
-  if maxCosine > 0:
+  if maxCosine > -1:
     return qa_dict1[q]
   else:
     return "อิหยังน้ออ"
