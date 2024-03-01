@@ -59,8 +59,11 @@ with open('clean_larp_han.csv', encoding="utf8") as f:
     x = item.split(",")
     # print(x)
     words = word_tokenize(x[1].replace("?"," ").strip(), engine="newmm")
+    words1 = word_tokenize(x[2].replace("?"," ").strip(), engine="newmm")
     seg_w =" ".join(words)
+    seg_w1 =" ".join(words1)
     qa_dict1[seg_w] = x[2].strip()
+    qa_dict1[seg_w1] = x[1].strip()
 
 
 with open('clean_food.csv', newline='', encoding='utf-8') as csvfile:
