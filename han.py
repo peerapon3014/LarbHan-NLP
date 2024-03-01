@@ -191,6 +191,27 @@ def ask(q):
   else:
     return "อิหยังน้ออ"
 
+def search_food(q):
+    try:
+        query_tokens = word_tokenize(q, engine="newmm")
+        query_vec = tf_idf(query_tokens)
+    except:
+        return "ไม่สามารถแปลคำค้นหาได้ :("
+    
+    results = []
+    for key, value in qa_dict1.items():
+        key_tokens = word_tokenize(key, engine="newmm")
+        key_vec = tf_idf(key_tokens)
+        similarity = cosine_sim(query_vec, key_vec)
+        if similarity > 0.5:  # เลือกค่าความคล้ายที่มากกว่า 0.5
+            results.append(value)
+    
+    if results:
+        return results
+    else:
+        return "ไม่พบข้อมูลที่ตรงกับคำค้นหา"
+
+
 
 print(ask("ขุ่ยคือใคร"))
 # print(ask("ข้าวเม่าทอด"))

@@ -84,13 +84,14 @@ async def handle_callback(request: Request):
         
         print(event.message.text)
         ans = han.ask(event.message.text)
+        inf = han.search_food(event.message.text)
         print(ans)
 
 
         await line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text=ans)]
+                messages=[TextMessage(text=ans,text=inf)]
             )
         )
 
