@@ -187,13 +187,12 @@ def ask(q):
       q = Key
       maxCosine = c
       
-    return qa_dict1[q]
       
 
-#   if maxCosine > 0.5:
-#     return qa_dict1[q]
-#   else:
-#     return "อิหยังน้ออ"
+  if maxCosine > 0:
+    return qa_dict1[q]
+  else:
+    return "อิหยังน้ออ"
 
 
 
