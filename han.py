@@ -65,7 +65,7 @@ with open('clean_larp_han.csv', encoding="utf8") as f:
     seg_w =" ".join(words)
     seg_w1 =" ".join(words1)
     qa_dict1[seg_w] = x[2].strip()
-    qa_dict1[seg_w1] = x[1].strip()
+    qa_dict1[seg_w1] = x[2].strip()
 
 
 with open('clean_food.csv', newline='', encoding='utf-8') as csvfile:
