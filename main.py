@@ -34,8 +34,8 @@ from linebot.v3.webhooks import (
 )
 import han
 import os
-os.environ["LINE_CHANNEL_SECRET"] = "dea91eb5e35c341e8b6704d91b10b085"
-os.environ["LINE_CHANNEL_ACCESS_TOKEN"] = "KWWYJXVNAq/hLhPpljFvUrjoI2CABBlDiE45vAynuhn/dzVYHLOIihyCnqA8dn+OskXKScRa2vBFtrBUYt9a0VuEOUK3L9o3fop3fpgBqSp4yLSndhzuxt5eEYvgAmg7E/7FT32Qe28vuvZY1f3nowdB04t89/1O/w1cDnyilFU="
+os.environ["LINE_CHANNEL_SECRET"] = "c90fb79411e3bbec281a84f3d178ca52"
+os.environ["LINE_CHANNEL_ACCESS_TOKEN"] = "2n4d6xlqJcaa4J3/qZHOfYcQVXd52L9vqnqw40wfrQAggCU82zPsE4cTo6m2PUJ52VJ1eiSAL4FxKtPYaH9gjqqSt/zL0/T35mt4PvtMut8xoScGiVY0Nb1dmuBk/u5eb6Bpm4L7roDMEMbEtKkPDgdB04t89/1O/w1cDnyilFU="
 
 
 # get channel_secret and channel_access_token from your environment variable
