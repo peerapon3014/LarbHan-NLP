@@ -76,11 +76,12 @@ with open('clean_food.csv', newline='', encoding='utf-8') as csvfile:
         text = row[2]   #ans
         text = text.replace('\n', ' ')  # เชื่อมข้อความในบรรทัดเดียวกันด้วยช่องว่าง
         # ใช้ word_tokenize ตัดคำ
-        words = word_tokenize(name.replace("?", " ").strip(), engine="newmm")
-        seg_text = " ".join(words)
-        
-        # add data to dictionary
-        qa_dict1[seg_text] = text
+        words = word_tokenize(x[1].replace("?"," ").strip(), engine="newmm")
+        words1 = word_tokenize(x[2].replace("?"," ").strip(), engine="newmm")
+        seg_w =" ".join(words)
+        seg_w1 =" ".join(words1)
+        qa_dict1[seg_w] = x[2].strip()
+        qa_dict1[seg_w1] = x[2].strip()
 
 with open("clean_wiki.csv", encoding="utf8") as f_wiki:
    wiki_reader = csv.reader(f_wiki)
@@ -90,7 +91,7 @@ with open("clean_wiki.csv", encoding="utf8") as f_wiki:
       text = text.replace("\n", " ")
       words = word_tokenize(name.replace("?", " ").strip(), engine="newmm")
       seg_word = " ".join(words)
-      qa_dict1[seg_word] = text
+    #   qa_dict1[seg_word] = text
 
 
 questions1 = list(qa_dict1.keys()) # คำถามเก็บอยู่ตัวแปร question 
